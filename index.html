@@ -1,0 +1,704 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Smogon Stats API</title>
+
+    <style media="screen">
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cpf {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s, .highlight .sa, .highlight .dl {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf, .highlight .fm {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv, .highlight .vm {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #f92672;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <style media="print">
+      * {
+        -webkit-transition:none!important;
+        transition:none!important;
+      }
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #586e75;
+}
+.highlight .err {
+  color: #002b36;
+  background-color: #dc322f;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
+  color: #657b83;
+}
+.highlight .cp {
+  color: #b58900;
+}
+.highlight .nt {
+  color: #b58900;
+}
+.highlight .o, .highlight .ow {
+  color: #93a1a1;
+}
+.highlight .p, .highlight .pi {
+  color: #93a1a1;
+}
+.highlight .gi {
+  color: #859900;
+}
+.highlight .gd {
+  color: #dc322f;
+}
+.highlight .gh {
+  color: #268bd2;
+  background-color: #002b36;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #6c71c4;
+}
+.highlight .kc {
+  color: #cb4b16;
+}
+.highlight .kt {
+  color: #cb4b16;
+}
+.highlight .kd {
+  color: #cb4b16;
+}
+.highlight .s, .highlight .sa, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #859900;
+}
+.highlight .sr {
+  color: #2aa198;
+}
+.highlight .si {
+  color: #d33682;
+}
+.highlight .se {
+  color: #d33682;
+}
+.highlight .nn {
+  color: #b58900;
+}
+.highlight .nc {
+  color: #b58900;
+}
+.highlight .no {
+  color: #b58900;
+}
+.highlight .na {
+  color: #268bd2;
+}
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
+  color: #859900;
+}
+.highlight .ss {
+  color: #859900;
+}
+    </style>
+    <link href="stylesheets/screen-c9d8fa83.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print-953e3353.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all-e9bde216.js"></script>
+
+    <script>
+      $(function() { setupCodeCopy(); });
+    </script>
+  </head>
+
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar-cad8cdcb.png" alt="" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="images/logo-a721696b.png" class="logo" alt="" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="shell">shell</a>
+              <a href="#" data-language-name="python">python</a>
+              <a href="#" data-language-name="javascript">javascript</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#smogon-stats-api" class="toc-h1 toc-link" data-title="Smogon Stats API">Smogon Stats API</a>
+          </li>
+          <li>
+            <a href="#stats" class="toc-h1 toc-link" data-title="Stats">Stats</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-pokemon-stats-for-a-specified-time-tier-and-tier-rank" class="toc-h2 toc-link" data-title="Get Pokemon stats for a specified time, tier, and tier rank">Get Pokemon stats for a specified time, tier, and tier rank</a>
+                  </li>
+                  <li>
+                    <a href="#get-most-recent-stats-given-a-pokemon-and-tier" class="toc-h2 toc-link" data-title="Get most recent stats given a Pokemon and tier">Get most recent stats given a Pokemon and tier</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#rankings" class="toc-h1 toc-link" data-title="Rankings">Rankings</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-rankings-for-a-specific-year-month-tier-and-tier-rank" class="toc-h2 toc-link" data-title="Get rankings for a specific year, month, tier, and tier rank">Get rankings for a specific year, month, tier, and tier rank</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+          </li>
+      </ul>
+        <ul class="toc-footer">
+            <li><a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='smogon-stats-api'>Smogon Stats API</h1>
+<p>Welcome to the Smogon Stats API! You can use the API to access Smogon usage stats for a Pokemon. </p>
+
+<p>This API is free to use. However, if plan on making a lot of calls, I do ask that you cache the data.</p>
+
+<p>Data is separated by months, tier, and tier rank. If you are not sure what month or tier rank you would like to access, you can access an endpoint that will provide Pokemon stats on the most recent month and best tier rank, given a tier and Pokemon.</p>
+
+<p>For example, if you are want stats of Porygon-Z for September 2020 in VGC rank 1760, you would use the former endpoint. If you would like the most recent stats for Porygon-Z in the VGC format, you can use the latter endpoint. Accessing both resources will provide the same stats as rank 1760 is the best rank for VGC and September 2020 is the most recent month.</p>
+
+<p>Data is available for the following months: July 2020, August 2020, September 2020.</p>
+
+<p>The following tiers and ranks are available:</p>
+
+<table><thead>
+<tr>
+<th>Tiers</th>
+<th>Tier Ranks (OU tiers for gen 8 have different ranks)</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>gen71v1 (not available for 2020-07)</td>
+<td>0, 1500, 1630, 1760</td>
+</tr>
+<tr>
+<td>gen7ubers</td>
+<td>0, 1500, 1630, 1760</td>
+</tr>
+<tr>
+<td>gen7ou</td>
+<td>0, 1500, 1630, 1760</td>
+</tr>
+<tr>
+<td>gen7uu</td>
+<td>0, 1500, 1630, 1760</td>
+</tr>
+<tr>
+<td>gen7doublesou</td>
+<td>0, 1500, 1630, 1760</td>
+</tr>
+<tr>
+<td>gen7monotype</td>
+<td>0, 1500, 1630, 1760</td>
+</tr>
+<tr>
+<td>gen81v1</td>
+<td>0, 1500, 1630, 1760</td>
+</tr>
+<tr>
+<td>gen8vgc2020</td>
+<td>0, 1500, 1630, 1760</td>
+</tr>
+<tr>
+<td>gen8ubers</td>
+<td>0, 1500, 1630, 1760</td>
+</tr>
+<tr>
+<td>gen8ou</td>
+<td>0, 1500, 1695, 1825</td>
+</tr>
+<tr>
+<td>gen8uu</td>
+<td>0, 1500, 1630, 1760</td>
+</tr>
+<tr>
+<td>gen8ru</td>
+<td>0, 1500, 1630, 1760</td>
+</tr>
+<tr>
+<td>gen8nu</td>
+<td>0, 1500, 1630, 1760</td>
+</tr>
+<tr>
+<td>gen8pu</td>
+<td>0, 1500, 1630, 1760</td>
+</tr>
+<tr>
+<td>gen8zu</td>
+<td>0, 1500, 1630, 1760</td>
+</tr>
+<tr>
+<td>gen8lc</td>
+<td>0, 1500, 1630, 1760</td>
+</tr>
+<tr>
+<td>gen8monotype</td>
+<td>0, 1500, 1630, 1760</td>
+</tr>
+<tr>
+<td>gen8doublesou</td>
+<td>0, 1500, 1695, 1825</td>
+</tr>
+<tr>
+<td>gen8doublesubers</td>
+<td>0, 1500, 1630, 1760</td>
+</tr>
+<tr>
+<td>gen8battlestadiumsingles</td>
+<td>0, 1500, 1630, 1760</td>
+</tr>
+</tbody></table>
+
+<p>We have language bindings in Shell, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<h1 id='stats'>Stats</h1><h2 id='get-pokemon-stats-for-a-specified-time-tier-and-tier-rank'>Get Pokemon stats for a specified time, tier, and tier rank</h2><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://smogon-stats.herokuapp.com/stats/2020/09/gen8vgc2020/1760/Togekiss'</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="p">.</span><span class="n">json</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://smogon-stats.herokuapp.com/stats/2020/09/gen8vgc2020/1760/Togekiss"</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://smogon-stats.herokuapp.com/stats/2020/09/gen8vgc2020/1760/Togekiss</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this where the numerical values represent percentages, except <code>rank</code> (for example, Togekiss was used 43.82% of the time. When Togekiss was used, Super Luck was its ability 70.95% of the time. It was the most used Pokemon for the tier, so it has a rank of 1):</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"tier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gen8vgc2020"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tier_rank"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1760"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"year"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"month"</span><span class="p">:</span><span class="w"> </span><span class="s2">"09"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Togekiss"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"usage"</span><span class="p">:</span><span class="w"> </span><span class="mf">43.81684</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"abilities"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Super Luck"</span><span class="p">:</span><span class="w"> </span><span class="mf">70.94992999130027</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Serene Grace"</span><span class="p">:</span><span class="w"> </span><span class="mf">28.963325443890565</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Hustle"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.08674456480916486</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"moves"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Air Slash"</span><span class="p">:</span><span class="w"> </span><span class="mf">93.69116489650992</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Follow Me"</span><span class="p">:</span><span class="w"> </span><span class="mf">83.5505798926134</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Scope Lens"</span><span class="p">:</span><span class="w"> </span><span class="mf">44.54223637649807</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Babiri Berry"</span><span class="p">:</span><span class="w"> </span><span class="mf">20.15720825789562</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"teammates"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Venusaur"</span><span class="p">:</span><span class="w"> </span><span class="mf">14.690123788814832</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Torkoal"</span><span class="p">:</span><span class="w"> </span><span class="mf">14.029266607592556</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"spreads"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Bold:236/0/196/4/12/60"</span><span class="p">:</span><span class="w"> </span><span class="mf">17.48380538977926</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Modest:212/0/4/76/4/212"</span><span class="p">:</span><span class="w"> </span><span class="mf">6.30193704885196</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"rank"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retreives stats for a specific Pokemon given a valid year, month, tier, tier rank, and Pokemon. This example shows how to access VGC rank 1760 stats for Togekiss during September 2020</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://smogon-stats.herokuapp.com/stats/&lt;year&gt;/&lt;month&gt;/&lt;tier&gt;/&lt;tier_rank&gt;/&lt;pokemon&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>year</td>
+<td>The year the data was released</td>
+<td>&quot;2020&quot; for the year 2020</td>
+</tr>
+<tr>
+<td>month</td>
+<td>The month the data was released</td>
+<td>&quot;09&quot; for the month of September</td>
+</tr>
+<tr>
+<td>tier</td>
+<td>The Smogon tier</td>
+<td>&quot;gen8vgc2020&quot; for Gen 8 VGC</td>
+</tr>
+<tr>
+<td>tier_rank</td>
+<td>The rank of the Smogon tier</td>
+<td>&quot;1760&quot; for the top tier in most formats</td>
+</tr>
+<tr>
+<td>pokemon</td>
+<td>The name of the Pokemon you want stats for</td>
+<td>&quot;Togekiss&quot;</td>
+</tr>
+</tbody></table>
+<h2 id='get-most-recent-stats-given-a-pokemon-and-tier'>Get most recent stats given a Pokemon and tier</h2><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://smogon-stats.herokuapp.com/recent/gen8vgc2020/Togekiss'</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="p">.</span><span class="n">json</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://smogon-stats.herokuapp.com/recent/gen8vgc2020/Togekiss"</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://smogon-stats.herokuapp.com/recent/gen8vgc2020/Togekiss</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this where the numerical values represent percentages, except <code>rank</code> (for example, Togekiss was used 43.82% of the time. When Togekiss was used, Super Luck was its ability 70.95% of the time. It was the most used Pokemon for the tier, so it has a rank of 1):</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"tier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gen8vgc2020"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tier_rank"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1760"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"year"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"month"</span><span class="p">:</span><span class="w"> </span><span class="s2">"09"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Togekiss"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"usage"</span><span class="p">:</span><span class="w"> </span><span class="mf">43.81684</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"abilities"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Super Luck"</span><span class="p">:</span><span class="w"> </span><span class="mf">70.94992999130027</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Serene Grace"</span><span class="p">:</span><span class="w"> </span><span class="mf">28.963325443890565</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Hustle"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.08674456480916486</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"moves"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Air Slash"</span><span class="p">:</span><span class="w"> </span><span class="mf">93.69116489650992</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Follow Me"</span><span class="p">:</span><span class="w"> </span><span class="mf">83.5505798926134</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Scope Lens"</span><span class="p">:</span><span class="w"> </span><span class="mf">44.54223637649807</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Babiri Berry"</span><span class="p">:</span><span class="w"> </span><span class="mf">20.15720825789562</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"teammates"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Venusaur"</span><span class="p">:</span><span class="w"> </span><span class="mf">14.690123788814832</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Torkoal"</span><span class="p">:</span><span class="w"> </span><span class="mf">14.029266607592556</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"spreads"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Bold:236/0/196/4/12/60"</span><span class="p">:</span><span class="w"> </span><span class="mf">17.48380538977926</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Modest:212/0/4/76/4/212"</span><span class="p">:</span><span class="w"> </span><span class="mf">6.30193704885196</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"rank"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retreives the most recent stats for a Pokemon in a specified tier. This request shows how to access the most recent, top stats for Togekiss in the VGC format. This request is equivalent to the first  example.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET https://smogon-stats.herokuapp.com/recent/&lt;tier&gt;/&lt;pokemon&gt;</code></p>
+<h3 id='url-parameters-2'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>tier</td>
+<td>The Smogon tier</td>
+<td>&quot;gen8vgc2020&quot; for Gen 8 VGC</td>
+</tr>
+<tr>
+<td>pokemon</td>
+<td>The name of the Pokemon you want stats for</td>
+<td>&quot;Togekiss&quot;</td>
+</tr>
+</tbody></table>
+<h1 id='rankings'>Rankings</h1><h2 id='get-rankings-for-a-specific-year-month-tier-and-tier-rank'>Get rankings for a specific year, month, tier, and tier rank</h2><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://smogon-stats.herokuapp.com/rankings/2020/09/gen8vgc2020/1760'</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="p">.</span><span class="n">json</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://smogon-stats.herokuapp.com/rankings/2020/09/gen8vgc2020/1760"</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://smogon-stats.herokuapp.com/rankings/2020/09/gen8vgc2020/1760</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Togekiss"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"usage"</span><span class="p">:</span><span class="w"> </span><span class="mf">43.81684</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"rank"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dragapult"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"usage"</span><span class="p">:</span><span class="w"> </span><span class="mf">31.01799</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"rank"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Incineroar"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"usage"</span><span class="p">:</span><span class="w"> </span><span class="mf">29.85968</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"rank"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rillaboom"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"usage"</span><span class="p">:</span><span class="w"> </span><span class="mf">23.021900000000002</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"rank"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Venusaur"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"usage"</span><span class="p">:</span><span class="w"> </span><span class="mf">22.08177</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"rank"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="err">...</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retreives rankings of Pokemon for a valid year, month, tier, and tier rank. This example shows how to access VGC rank 1760 rankings for September 2020.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>GET https://smogon-stats.herokuapp.com/rankings/&lt;year&gt;/&lt;month&gt;/&lt;tier&gt;/&lt;tier_rank&gt;</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>year</td>
+<td>The year the data was released</td>
+<td>&quot;2020&quot; for the year 2020</td>
+</tr>
+<tr>
+<td>month</td>
+<td>The month the data was released</td>
+<td>&quot;09&quot; for the month of September</td>
+</tr>
+<tr>
+<td>tier</td>
+<td>The Smogon tier</td>
+<td>&quot;gen8vgc2020&quot; for Gen 8 VGC</td>
+</tr>
+<tr>
+<td>tier_rank</td>
+<td>The rank of the Smogon tier</td>
+<td>&quot;1760&quot; for the top tier in most formats</td>
+</tr>
+</tbody></table>
+<h1 id='errors'>Errors</h1>
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>404</td>
+<td>Not Found -- The specified item could not be found.</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="shell">shell</a>
+                <a href="#" data-language-name="python">python</a>
+                <a href="#" data-language-name="javascript">javascript</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
